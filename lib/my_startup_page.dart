@@ -7,6 +7,8 @@ class MyStartupPage extends StatefulWidget {
 }
 
 class _MyStartupPageState extends State<MyStartupPage> {
+  bool isSwitch = false;
+  bool? isCheckBox = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,52 +25,87 @@ class _MyStartupPageState extends State<MyStartupPage> {
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),
-      ),
-      body: Column(
-        children: [
-          Image.asset('images/apple.jpg'),
-          const SizedBox(
-            height: 50,
-          ),
-          const Divider(
-            color: Colors.black,
-          ),
-          Container(
-            margin: const EdgeInsets.all(10.0),
-            width: double.infinity,
-            color: Colors.orange,
-            child: const Center(
-              child: Text('This should be second page'),
-            ),
-          ),
-          const SizedBox(height: 10.0),
-          ElevatedButton(
+        actions: [
+          IconButton(
             onPressed: () {},
-            child: const Text('Elevated Button'),
+            icon: const Icon(Icons.info_outline),
           ),
-          const SizedBox(height: 10.0),
-          OutlinedButton(
-            onPressed: () {},
-            child: const Text('Outlined Button'),
-          ),
-          const SizedBox(height: 10.0),
-          TextButton(
-            onPressed: () {},
-            child: const Text('Text Button'),
-          ),
-          const SizedBox(height: 60.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
-              Icon(
-                Icons.local_fire_department,
-                color: Colors.red,
-              ),
-              Text('Departments'),
-              Icon(Icons.local_fire_department),
-            ],
-          )
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset('images/apple.jpg'),
+            const SizedBox(height: 50),
+            const Divider(
+              color: Colors.black,
+            ),
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              width: double.infinity,
+              color: Colors.orange,
+              child: const Center(
+                child: Text('This should be second page'),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: isSwitch ? Colors.blue : Colors.orange,
+              ),
+              onPressed: () {},
+              child: const Text('Elevated Button'),
+            ),
+            const SizedBox(height: 20.0),
+            OutlinedButton(
+              onPressed: () {},
+              child: const Text('Outlined Button'),
+            ),
+            const SizedBox(height: 20.0),
+            TextButton(
+              onPressed: () {},
+              child: const Text('Text Button'),
+            ),
+            const SizedBox(height: 30.0),
+            GestureDetector(
+              onTap: () {
+                debugPrint('It has been pressed.');
+              },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: const [
+                  Icon(
+                    Icons.local_fire_department,
+                    color: Colors.red,
+                  ),
+                  Text('Departments'),
+                  Icon(
+                    Icons.local_fire_department,
+                    color: Colors.purple,
+                  ),
+                ],
+              ),
+            ),
+            Switch(
+              value: isSwitch,
+              onChanged: (bool newBool) {
+                setState(() {
+                  isSwitch = newBool;
+                });
+              },
+            ),
+            Checkbox(
+              value: isCheckBox,
+              onChanged: (bool? newBool) {
+                setState(() {
+                  isCheckBox = newBool;
+                });
+              },
+            ),
+            Image.network(
+                'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Cat03.jpg/1025px-Cat03.jpg')
+          ],
+        ),
       ),
     );
   }
